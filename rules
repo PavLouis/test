@@ -1,0 +1,51 @@
+extends: [[spectral:oas, recommended]]
+rules:
+  methods-has-x-tango-mti:
+    description: Field x-tango-mti should be present for each method
+    message: "Each method should contain the field 'x-tango-mti' of type string. Exemple : \"x-tango-mti\": \"8500\""
+    severity: error
+    given: $.paths.*.*
+    then:
+      field: x-tango-mti
+      function: truthy
+  
+  response-has-x-tango-result-cli:
+    message: "Each response need to have the field 'x-tango-result-cli'. Exemple: \"x-tango-result-cli\": \"0\""
+    severity: error
+    given: $.paths.*.*.responses.*
+    then:
+      field: x-tango-result-cli
+      function: truthy
+    
+      field: x-tango-result-cli
+      function: schema
+      functionOptions:
+        schema:
+          type: integer
+
+  response-has-x-tango-result-srv:
+    message: "Each response need to have the field 'x-tango-result-srv'. Exemple: \"x-tango-result-srv\": \"[2022]\""
+    severity: error
+    given: $.paths.*.*.responses.*
+    then:
+      field: x-tango-result-srv
+      function: truthy
+    
+      field: x-tango-result-srv
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          items:
+            type: integer
+          minItems: 1
+
+  parameter-has-x-tango-field:
+    message: "Each parameter need to have the field 'x-tango-field'."
+    severity: error
+    given: $.paths.*.*.parameters.*
+    then:
+      field: x-tango-field
+      function: truthy
+
+      
