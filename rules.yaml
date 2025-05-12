@@ -1,6 +1,7 @@
 extends: [[spectral:oas, recommended]]
 functions: [checkMappingKeysExistInProperties]
 rules:
+  oas3-valid-schema-example: off
   methods-has-x-tango-mti:
     description: Field x-tango-mti should be present for each method
     message: "Each method should contain the field 'x-tango-mti' of type string. Exemple : \"x-tango-mti\": \"8500\""
