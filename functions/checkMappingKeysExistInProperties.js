@@ -15,9 +15,9 @@ export default createRulesetFunction(
       },
       required: ["properties", "x-tango-mapping"],
     },
-    options: null, // No options for this function
+    options: null,
   },
-  function checkMappingKeysExistInProperties(schema) {
+  function checkMappingKeysExistInProperties(schema, _options, context) {
     const errors = [];
 
     if (schema && schema['x-tango-mapping'] && schema.properties) {
@@ -28,7 +28,7 @@ export default createRulesetFunction(
         if (!schemaProperties.includes(mappingKey)) {
           errors.push({
             message: `Mapping key '${mappingKey}' in 'x-tango-mapping' does not refer to an existing property in this schema. Available properties are: ${schemaProperties.join(', ')}`,
-            path: ['x-tango-mapping', mappingKey],
+            path: [...context.path, 'x-tango-mapping', mappingKey], // Use the context.path
           });
         }
       }
