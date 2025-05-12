@@ -1,4 +1,5 @@
 extends: [[spectral:oas, recommended]]
+functions: [checkMappingKeysExistInProperties]
 rules:
   methods-has-x-tango-mti:
     description: Field x-tango-mti should be present for each method
@@ -48,6 +49,10 @@ rules:
       field: x-tango-field
       function: truthy
 
+  tango-mapping-refers-existing-property:
+    message: "Each key in 'x-tango-mapping' must correspond to an existing property in the schema."
+    severity: error
+    given: $.components.schemas.*
     then:
       function: checkMappingKeysExistInProperties
 
